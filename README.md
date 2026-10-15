@@ -1,7 +1,5 @@
 # AI Agent Handbook
 
-中文 | [English](./README_EN.md)
-
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](./LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/aliyun/ai-agent-handbook?style=social)](https://github.com/aliyun/ai-agent-handbook)
 [![Website](https://img.shields.io/badge/阅读站-aliyun.github.io%2Fai--agent--handbook-2ea44f)](https://aliyun.github.io/ai-agent-handbook/)
@@ -92,7 +90,7 @@
 | 🛡️ 治理篇 | 第 13–16 章 | [导读](./04-governance/治理篇导读.md) | [/governance/ →](https://aliyun.github.io/ai-agent-handbook/governance/) |
 | 📈 调优篇 | 第 17–24 章 | [导读](./05-optimization/调优篇导读.md) | [/optimization/ →](https://aliyun.github.io/ai-agent-handbook/optimization/) |
 | 🏭 实践篇 | 第 25–29 章 + Jev 专题 | [导读](./06-case-study/README.md) | [/cases/ →](https://aliyun.github.io/ai-agent-handbook/cases/) |
-| 🔭 总结与展望 | [第 30 章](./07-conclusion/第%2030%20章%20从%20Agentic%20Application%20到%20Agentic%20OS.md) | — | [/outlook/ →](https://aliyun.github.io/ai-agent-handbook/outlook/) |
+| 🔭 总结与展望 | [第 30 章](<./07-conclusion/第 30 章 从 Agentic Application 到 Agentic OS.md>) | — | [/outlook/ →](https://aliyun.github.io/ai-agent-handbook/outlook/) |
 
 <p align="right"><sub><a href="#目录">↑ 回到目录</a></sub></p>
 
