@@ -1,4 +1,27 @@
+---
+title: "构建篇导读"
+tags:
+  - AI Agent
+  - 构建
+  - Harness
+  - Agent Loop
+  - Context
+  - Action
+  - 工程契约
+category: build
+created: 2026-10-15
+updated: 2026-10-15
+source: ai-agent-handbook
+type: guide
+status: published
+lifecycle: production
+---
+
 # 构建篇导读
+
+---
+
+## 💡 概述
 
 上一篇确立了架构对象与责任划分，本篇进入生命周期的第二个阶段。构建阶段的核心工作有两项：决定 Harness 由谁实现，以及把模型的离散判断组织为可持续推进、可中断恢复、可验证结束的任务过程。
 
@@ -6,12 +29,9 @@ Coding Agent 为这项工作提供了一个可观察的工程样本。在代码�
 
 构建是本书五个持续责任域中的 Agent 构建与编排域。这里的构建不是一次性开发活动，被构建出的编排逻辑会在每次任务运行时持续工作，其质量直接决定运行篇要承载什么、治理篇要观测什么、调优篇能改什么。同时，本篇只描述并绑定可用能力，物理执行、状态落盘与环境隔离由运行篇承担，这条边界贯穿四章。
 
-| 对应章节 | 主线 | 构建对象或问题 | 主要机制 |
-| --- | --- | --- | --- |
-| 第 3 章 | 范式：Harness 由谁实现 | 定制深度、数据边界、运行责任与交付方式的取舍。 | 四类构建入口：高代码框架、产品化 Harness（Coding Agent CLI / SDK 与工作区助手）、Managed Agents、Agent 云产品；Agent Platform 的规模化交付与多源纳管。 |
-| 第 4 章 | 工程契约：任务 | 任务如何推进、中断如何恢复、完成如何判定。 | Agent Loop 与任务状态机、Planning 与阶段门禁、Subagent 受控委派、异步续行、由证据决定完成。 |
-| 第 5 章 | 工程契约：信息 | 有限模型窗口与持续增长的任务世界之间如何取舍。 | Context 构建管线与 Manifest、压缩与卸载、Session / Task State / Workspace 的区分、Memory 与 Knowledge 的分工、Skill 的渐进式披露。 |
-| 第 6 章 | 工程契约：行动 | 行动意图如何被授权、执行与验证。 | 统一 Action Plane、Function Calling / MCP / A2A 的职责分层、Environment Contract 与 Sandbox、Permission 与 HITL、Trace 与 Evaluation 闭环。 |
+---
+
+## ⚡ 功能
 
 第一条主线是构建入口的选择。当前存在四类主要起点：高代码框架提供代码级控制；产品化 Harness 以 Coding Agent CLI、SDK 与工作区助手的形式复用成熟能力；Managed Agents 将约定范围内的 Harness 与运行基础服务化；Agent 云产品提供原生创建与共享资源入口。四类入口不构成成熟度阶梯，也不互斥，选择依据是任务结构、定制深度、数据边界、环境影响、团队能力与交付方式。当多团队、多来源 Agent 同时存在时，Agent Platform 负责统一创建、接入、规模化交付、运行、治理、协作、观测与优化，它不是第五类入口。
 
@@ -20,3 +40,47 @@ Coding Agent 为这项工作提供了一个可观察的工程样本。在代码�
 三类契约存在内在顺序：任务定义流转，信息定义每一步的可见范围，行动定义副作用与验收依据。第 4 至 6 章共用同一贯穿案例，即生产服务漏洞修复与变更发布 Agent，跨章跟读同一任务比分别阅读更容易看清三类契约的咬合关系。
 
 本篇构建出的 Agent 随后需要进入真实的执行环境、状态存储与流量通道，那是第三篇运行的主题。
+
+---
+
+## 📊 指标
+
+「待补充」
+
+---
+
+## 🏛️ 设计
+
+| 对应章节 | 主线 | 构建对象或问题 | 主要机制 |
+| --- | --- | --- | --- |
+| 第 3 章 | 范式：Harness 由谁实现 | 定制深度、数据边界、运行责任与交付方式的取舍。 | 四类构建入口：高代码框架、产品化 Harness（Coding Agent CLI / SDK 与工作区助手）、Managed Agents、Agent 云产品；Agent Platform 的规模化交付与多源纳管。 |
+| 第 4 章 | 工程契约：任务 | 任务如何推进、中断如何恢复、完成如何判定。 | Agent Loop 与任务状态机、Planning 与阶段门禁、Subagent 受控委派、异步续行、由证据决定完成。 |
+| 第 5 章 | 工程契约：信息 | 有限模型窗口与持续增长的任务世界之间如何取舍。 | Context 构建管线与 Manifest、压缩与卸载、Session / Task State / Workspace 的区分、Memory 与 Knowledge 的分工、Skill 的渐进式披露。 |
+| 第 6 章 | 工程契约：行动 | 行动意图如何被授权、执行与验证。 | 统一 Action Plane、Function Calling / MCP / A2A 的职责分层、Environment Contract 与 Sandbox、Permission 与 HITL、Trace 与 Evaluation 闭环。 |
+
+---
+
+## 📁 目录
+
+- 第 3 章：范式：Harness 由谁实现
+- 第 4 章：工程契约：任务
+- 第 5 章：工程契约：信息
+- 第 6 章：工程契约：行动
+
+---
+
+## 🔗 资源
+
+「待补充」
+
+---
+
+## 🚀 快速开始
+
+「待补充」
+
+---
+
+## ⚙️ 技术栈
+
+「待补充」
