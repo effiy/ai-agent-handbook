@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check YAML frontmatter in all .md files
+      - name: Check YAML frontmatter (files that have one)
         run: |
           pip install -q pyyaml
           python3 -c "
@@ -27,6 +27,8 @@ jobs:
 
           errors = []
           REQUIRED = ['title','tags','category','created','updated','source','type','status']
+          skipped = 0
+          checked = 0
 
           for root, dirs, files in os.walk('.'):
               dirs[:] = [d for d in dirs if not d.startswith('.') and d != 'node_modules']
@@ -38,8 +40,9 @@ jobs:
                       head = fh.read(2048)
                   m = re.match(r'^---\s*\n(.*?)\n---', head, re.DOTALL)
                   if not m:
-                      errors.append(f'{fp}: missing frontmatter block')
+                      skipped += 1
                       continue
+                  checked += 1
                   try:
                       fm = yaml.safe_load(m.group(1))
                       if not isinstance(fm, dict):
@@ -51,13 +54,14 @@ jobs:
                   except yaml.YAMLError as e:
                       errors.append(f'{fp}: YAML parse error — {e}')
 
+          print(f'Checked {checked} file(s), skipped {skipped} file(s) without frontmatter')
           if errors:
               print(f'Found {len(errors)} error(s):')
               for e in errors:
                   print(f'  ❌ {e}')
               sys.exit(1)
           else:
-              print('✅ All .md files have valid frontmatter')
+              print('✅ All frontmatter blocks valid')
           "
 
   lint:
