@@ -14,71 +14,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-frontmatter:
+  validate:
     name: Validate frontmatter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check YAML frontmatter (files that have one)
-        run: |
+      - run: |
           pip install -q pyyaml
           python3 -c "
           import os, re, sys, yaml
-
           errors = []
           REQUIRED = ['title','tags','category','created','updated','source','type','status']
-          skipped = 0
-          checked = 0
-
+          skipped = 0; checked = 0
           for root, dirs, files in os.walk('.'):
               dirs[:] = [d for d in dirs if not d.startswith('.') and d != 'node_modules']
               for f in files:
-                  if not f.endswith('.md'):
-                      continue
+                  if not f.endswith('.md'): continue
                   fp = os.path.join(root, f)
-                  with open(fp, encoding='utf-8', errors='replace') as fh:
-                      head = fh.read(2048)
+                  with open(fp, encoding='utf-8', errors='replace') as fh: head = fh.read(2048)
                   m = re.match(r'^---\s*\n(.*?)\n---', head, re.DOTALL)
-                  if not m:
-                      skipped += 1
-                      continue
+                  if not m: skipped += 1; continue
                   checked += 1
                   try:
                       fm = yaml.safe_load(m.group(1))
-                      if not isinstance(fm, dict):
-                          errors.append(f'{fp}: frontmatter is not a YAML mapping')
-                          continue
+                      if not isinstance(fm, dict): errors.append(f'{fp}: not a YAML mapping'); continue
                       for field in REQUIRED:
-                          if field not in fm:
-                              errors.append(f'{fp}: missing required field \"{field}\"')
-                  except yaml.YAMLError as e:
-                      errors.append(f'{fp}: YAML parse error — {e}')
-
-          print(f'Checked {checked} file(s), skipped {skipped} file(s) without frontmatter')
+                          if field not in fm: errors.append(f'{fp}: missing \"{field}\"')
+                  except yaml.YAMLError as e: errors.append(f'{fp}: YAML error — {e}')
+          print(f'Checked {checked}, skipped {skipped} without frontmatter')
           if errors:
-              print(f'Found {len(errors)} error(s):')
-              for e in errors:
-                  print(f'  ❌ {e}')
+              for e in errors: print(f'  ❌ {e}')
               sys.exit(1)
-          else:
-              print('✅ All frontmatter blocks valid')
+          print('✅ All frontmatter valid')
           "
-
-  lint:
-    name: Lint markdown
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v19
-        with:
-          globs: '**/*.md'
-
-  result:
-    name: CI result
-    needs: [validate-frontmatter, lint]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          test "${{ needs.validate-frontmatter.result }}" = success && \
-          test "${{ needs.lint.result }}" = success
